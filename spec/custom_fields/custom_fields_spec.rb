@@ -10,18 +10,18 @@ describe CustomFields do
   
   context "custom fields" do
     it 'adds custom_fields' do
-      post.custom_fields.create(contents: "Custom Content")
-      expect(post.custom_fields.count).to be 1
+      cf = CustomField.create(value: ['asd'])
+      expect(cf.persisted?).to be true
     end
   end
   
-  context "custom field types" do
+  context "custom field labels" do
 
-      let(:custom_field) {post.custom_fields.create(contents: "Custom Content")}
-      let(:custom_field_type) {custom_field.custom_field_type = CustomFieldType.create(name: "text")}
+      let(:custom_field) {post.custom_fields.create(value: ["Custom Content"])}
 
-    it 'adds custom_field_types' do
-      expect(custom_field_type.class).to eq CustomFieldType
+    it 'can add a label' do
+      custom_field.label << "A Label"
+      custom_field.save
     end
   end
 end
